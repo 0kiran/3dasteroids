@@ -3,7 +3,7 @@ $(document).ready(function(){
 
     var enemynumber = 0; 
     var score = 0;
-    var health = 15;
+    var health = 2;
     var healthstring;
     
     setInterval(function(){
@@ -59,15 +59,21 @@ $(document).ready(function(){
         }
         else if (enemynumber == 20){
             $("#scene").append("<a-entity id='boss1' obj-model='obj: #ufo; mtl: #ufomtl' position='" + ufox + " " + y + " " + z +"' scale='0.3 0.3 0.3'><a-animation attribute='position' to='" + -x + " " + y + " " + -z +"' repeat='indefinite' dur='8000' direction='alternate'></a-animation></a-entity>")
-            $("#scene").append("<a-entity id='boss1' obj-model='obj: #ufo; mtl: #ufomtl' position='" + ufox + " " + y + " " + z +"' scale='0.3 0.3 0.3'><a-animation attribute='position' to='" + -x + " " + y + " " + -z +"' repeat='indefinite' dur='8000' direction='alternate'></a-animation></a-entity>")
+            $("#scene").append("<a-entity id='boss1' obj-model='obj: #ufo; mtl: #ufomtl' color='red' position='" + ufox + " " + y + " " + z +"' scale='0.299 0.299 0.299'><a-animation attribute='position' to='" + -x + " " + y + " " + -z +"' repeat='indefinite' dur='8000' direction='alternate'></a-animation></a-entity>")
             $("#scene").append("<a-entity id='boss1' obj-model='obj: #ufo; mtl: #ufomtl' position='" + ufox + " " + y + " " + z +"' scale='0.3 0.3 0.3'><a-animation attribute='position' to='" + -x + " " + y + " " + -z +"' repeat='indefinite' dur='8000' direction='alternate'></a-animation></a-entity>")
             //minions
-            $("#scene").append("<a-sphere src='alientext.jpg' class='asteroid' position='" + (ufox - 3.5) + " " + y + " " + z +"' scale='0.3 0.3 0.3'><a-animation attribute='position' to='0 1 0' dur='5500'></a-animation></a-sphere>")  
-            $("#scene").append("<a-sphere src='alientext.jpg' class='asteroid' position='" + (ufox + 3.5) + " " + y + " " + z +"' scale='0.3 0.3 0.3'><a-animation attribute='position' to='0 1 0' dur='5500'></a-animation></a-sphere>")  
+            $("#scene").append("<a-sphere src='alientext.jpg' id='asteroid" + enemynumber + "' class='asteroid' position='" + (ufox - 3.5) + " " + y + " " + z +"' scale='0.3 0.3 0.3'><a-animation attribute='position' to='0 1 0' dur='5500'></a-animation></a-sphere>")  
+            $("#scene").append("<a-sphere src='alientext.jpg' id='asteroid" + enemynumber + "' class='asteroid' position='" + (ufox + 3.5) + " " + y + " " + z +"' scale='0.3 0.3 0.3'><a-animation attribute='position' to='0 1 0' dur='5500'></a-animation></a-sphere>")  
          //   $("#scene").append("<a-sphere src='alientext.jpg' class='asteroid' position='" + ufox + " " + y + " " + (z + 3.5) "' scale='0.3 0.3 0.3'><a-animation attribute='position' to='0 1 0' dur='5500'></a-animation></a-sphere>")  
         }
-        else if (enemynumber == 25)
-            $("#scene").append("<a-entity id='asteroid" + enemynumber + "'><a-box src ='shield.jpg' position= '" + x + " " + y + " " + z +"'></a-box><a-sphere scale='0.3 0.3 0.3' position= '" + x + " " + y + " " + z +"' src ='shield.jpg'></a-sphere><a-animation attribute='position' to='0 1 0'></a-animation></a-entity>")
+        else if (enemynumber == 5){
+            //$("#scene").append("")
+            $("#scene").append("<a-box src ='shield.jpg' id='asteroid" + enemynumber + "' position= '" + x + " " + y + " " + z +"'><a-animation attribute='position' to='0 1 0' dur='10000'></a-animation></a-box>")
+            
+        
+            
+            
+        }
         // IF no others spawn, a normal asteroid spawns
         else {
             $("#scene").append("<a-sphere src='asteroid.jpg' id='asteroid" + enemynumber + "' position='" + x + " " + y + " " + z +"' scale='0.3 0.3 0.3' particle-system='preset: dust'><a-animation attribute='position' to='0 1 0' dur='8000'></a-animation></a-sphere>")  
@@ -83,11 +89,9 @@ $(document).ready(function(){
         })
         
         $("#asteroid"+ enemynumber).on("animationend", function(){
-             
-            health -= 1
+            health -= 0.1
             $(this).remove()
-            healthstring = "HEALTH =" + ' I'.repeat(health);
-            $('#health').attr("value", healthstring)
+            $('#health').attr("scale", (health)  + " 0.1 0.1" )
             console.log(health)
         }) 
         
