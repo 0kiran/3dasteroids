@@ -1,20 +1,22 @@
 $(document).ready(function(){
     
 
-    var type = 0; 
-    var pointcount = 0;
-    $("#points").html=pointcount;
+    var enemynumber = 0; 
+    var score = 0;
+    var health = 15;
+    var healthstring;
     
     setInterval(function(){
         var wall = 1 
         var x;
         var y = getRandomInt(3,12) ;
         var z;
+        var ufox = getRandomInt(-5,5)
         
         //New code
 
-        var typeY = getRandomInt(3,12) ;
-        //Kiran this is just some work Im doing for the second type of asteroid. For now it'll be the one that changes 
+        var enemynumberY = getRandomInt(3,12) ;
+        //Kiran this is just some work Im doing for the second enemynumber of asteroid. For now it'll be the one that changes 
         //
         if (wall == 1) {
             x = getRandomInt(-10,10)
@@ -41,40 +43,61 @@ $(document).ready(function(){
             z = getRandomInt(-10, 10)
             
         }
+        
         // Asteroid Spawner Code
         
         // small fast red Asteroid
-        if ( type == 10) {
-            $("#scene").append("<a-sphere color='red' src= 'asteroid.jpg' class='asteroid' position='" + x + " " + typeY + " " + z +"' scale='0.2 0.2 0.2'><a-animation attribute='position' to='0 1 0' dur='6500' repeat='indefinite'></a-animation></a-sphere>")
+        
+        if ( enemynumber == 10) {
+            $("#scene").append("<a-sphere id='asteroid" + enemynumber + "' color='red' src= 'asteroid.jpg' class='asteroid' position='" + x + " " + enemynumberY + " " + z +"' scale='0.2 0.2 0.2'><a-animation attribute='position' to='0 1 0' dur='6500' repeat='indefinite'></a-animation></a-sphere>")
         }
         //UFO (Spawns Asteroids)
-        else if (type == 3){
-            $("#scene").append("<a-entity id='boss1' obj-model='obj: #ufo; mtl: #ufomtl' position='" + x + " " + y + " " + z +"' scale='0.3 0.3 0.3'><a-animation attribute='position' to='" + -x + " " + y + " " + -z +"' repeat='indefinite' dur='8000' direction='alternate'></a-animation></a-entity>")
-            $("#scene").append("<a-entity id='boss1' obj-model='obj: #ufo; mtl: #ufomtl' position='" + x + " " + y + " " + z +"' scale='0.3 0.3 0.3'><a-animation attribute='position' to='" + -x + " " + y + " " + -z +"' repeat='indefinite' dur='8000' direction='alternate'></a-animation></a-entity>")
-            $("#scene").append("<a-entity id='boss1' obj-model='obj: #ufo; mtl: #ufomtl' position='" + x + " " + y + " " + z +"' scale='0.3 0.3 0.3'><a-animation attribute='position' to='" + -x + " " + y + " " + -z +"' repeat='indefinite' dur='8000' direction='alternate'></a-animation></a-entity>")
-            
+        else if (enemynumber == 15) {
+            $("#scene").append("<a-sphere src='asteroid.jpg' class='asteroid' id='asteroid" + enemynumber + "' position='" + x + " " + y + " " + z +"' scale='0.3 0.3 0.3' particle-system='preset: dust'><a-animation attribute='position' to='0 1 0' dur='8000'></a-animation></a-sphere>")
+            $("#scene").append("<a-sphere src='asteroid.jpg' class='asteroid' id='asteroid" + enemynumber + "' position='" + x + " " + y + " " + z +"' scale='0.3 0.3 0.3' particle-system='preset: dust'><a-animation attribute='position' to='0 1 0' dur='8000'></a-animation></a-sphere>")
+            $("#scene").append("<a-sphere src='asteroid.jpg' class='asteroid' id='asteroid" + enemynumber + "' position='" + x + " " + y + " " + z +"' scale='0.3 0.3 0.3' particle-system='preset: dust'><a-animation attribute='position' to='0 1 0' dur='8000'></a-animation></a-sphere>")
         }
+        else if (enemynumber == 20){
+            $("#scene").append("<a-entity id='boss1' obj-model='obj: #ufo; mtl: #ufomtl' position='" + ufox + " " + y + " " + z +"' scale='0.3 0.3 0.3'><a-animation attribute='position' to='" + -x + " " + y + " " + -z +"' repeat='indefinite' dur='8000' direction='alternate'></a-animation></a-entity>")
+            $("#scene").append("<a-entity id='boss1' obj-model='obj: #ufo; mtl: #ufomtl' position='" + ufox + " " + y + " " + z +"' scale='0.3 0.3 0.3'><a-animation attribute='position' to='" + -x + " " + y + " " + -z +"' repeat='indefinite' dur='8000' direction='alternate'></a-animation></a-entity>")
+            $("#scene").append("<a-entity id='boss1' obj-model='obj: #ufo; mtl: #ufomtl' position='" + ufox + " " + y + " " + z +"' scale='0.3 0.3 0.3'><a-animation attribute='position' to='" + -x + " " + y + " " + -z +"' repeat='indefinite' dur='8000' direction='alternate'></a-animation></a-entity>")
+            //minions
+            $("#scene").append("<a-sphere src='alientext.jpg' class='asteroid' position='" + (ufox - 3.5) + " " + y + " " + z +"' scale='0.3 0.3 0.3'><a-animation attribute='position' to='0 1 0' dur='5500'></a-animation></a-sphere>")  
+            $("#scene").append("<a-sphere src='alientext.jpg' class='asteroid' position='" + (ufox + 3.5) + " " + y + " " + z +"' scale='0.3 0.3 0.3'><a-animation attribute='position' to='0 1 0' dur='5500'></a-animation></a-sphere>")  
+         //   $("#scene").append("<a-sphere src='alientext.jpg' class='asteroid' position='" + ufox + " " + y + " " + (z + 3.5) "' scale='0.3 0.3 0.3'><a-animation attribute='position' to='0 1 0' dur='5500'></a-animation></a-sphere>")  
+        }
+        else if (enemynumber == 25)
+            $("#scene").append("<a-entity id='asteroid" + enemynumber + "'><a-box src ='shield.jpg' position= '" + x + " " + y + " " + z +"'></a-box><a-sphere scale='0.3 0.3 0.3' position= '" + x + " " + y + " " + z +"' src ='shield.jpg'></a-sphere><a-animation attribute='position' to='0 1 0'></a-animation></a-entity>")
         // IF no others spawn, a normal asteroid spawns
         else {
-            $("#scene").append("<a-sphere src='asteroid.jpg' class='asteroid' position='" + x + " " + y + " " + z +"' scale='0.3 0.3 0.3' particle-system='preset: dust'><a-animation attribute='position' to='0 1 0' dur='8000'></a-animation></a-sphere>")  
+            $("#scene").append("<a-sphere src='asteroid.jpg' id='asteroid" + enemynumber + "' position='" + x + " " + y + " " + z +"' scale='0.3 0.3 0.3' particle-system='preset: dust'><a-animation attribute='position' to='0 1 0' dur='8000'></a-animation></a-sphere>")  
         }
             
-            
         
-        $(".asteroid").mousedown(function(){
-            $(this).remove(".asteroid")
-            var score = $('#score').attr("value")
-            $('#score').attr("value", "")
+
+        $("#asteroid"+ enemynumber).mousedown(function(e){
+            e.stopPropagation();
+            $(this).remove()
+            score++
+            $('#score').attr("value", score)
         })
         
+        $("#asteroid"+ enemynumber).on("animationend", function(){
+             
+            health -= 1
+            $(this).remove()
+            healthstring = "HEALTH =" + ' I'.repeat(health);
+            $('#health').attr("value", healthstring)
+            console.log(health)
+        }) 
+        
         $("#boss1").mousedown(function(){
-            $(this).remove("#boss1")
+            $(this).remove()
         })
         //This is the start of the new code
         
         
-        type++
-        console.log(type)
+        enemynumber++
         
        //This is the end. Comment it out if needed
     }, 3000)
