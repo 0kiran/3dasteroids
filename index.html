@@ -12,12 +12,14 @@
     <script src="script.js"></script>
     
   </head>
-  <body>
+  <body id="body">
   <a-scene id ="scene">
     <a-asset-item id="blaster" src="blaster.obj"></a-asset-item>
     <a-asset-item id="blastermtl" src="blaster.mtl"></a-asset-item>
     <a-asset-item id="ufoimg" src="probeufo.obj"></a-asset-item>
     <a-asset-item id="ufomtl" src="probeufo.mtl"></a-asset-item>
+    <a-asset-item id="healthpackimg" src="health-pack.obj"></a-asset-item>
+    <a-asset-item id="healthpackmtl" src="health-pack.mtl"></a-asset-item>
   	<a-assets>
   		<img id="space" src= "space.jpg"></img>
   		
@@ -26,7 +28,7 @@
   	
   	<a-entity>
        <a-camera>
-            <a-cursor color = "white" position="0 0 -2"></a-cursor>
+            <a-cursor id="cursor" color = "white" position="0 0 -2"></a-cursor>
             <a-entity id='blaster' obj-model='obj: #blaster; mtl: #blastermtl' position='-0.8 -1.1 -2' scale='2 2 2' rotation= "0 170 0"></a-entity>
             
             
@@ -35,7 +37,7 @@
     </a-entity>
   	
     <a-box id="start-button" position="0 2 -5" scale='3 1 1' color="green"></a-box>
-    <a-text id="start-text" position="-0.3 2 -4" value="START" color="white"></a-text>
+    <a-text id="start-text" position="-0.7 1.95 -4" value="START" color="white" scale = "2 2 2"></a-text>
   	
   </a-scene>
   </body>
